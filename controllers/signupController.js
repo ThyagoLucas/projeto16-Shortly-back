@@ -1,25 +1,19 @@
 import db from '../db.js';
-
+import bcrypt from 'bcrypt';
 
 export async function postRegister(req, res){
     
     const {name, email, password} = req.body;
-
-    console.log(name, email, password);
-
+    const passCrypt = bcrypt.hashSync(password, 10);
 
     try {
 
-     await db.query(`INSERT INTO users (name, email, password) VALUES (${name}, ${email}, '${password}')`);
-
+     await db.query(`INSERT INTO users (name, email, password) VALUES ($1, $2, $3)`, [`${name}`, `${email}`, `${passCrypt}`]);
      res.sendStatus(201)
         
     } catch (error) {
-        console.log('ERRO AO INSERIR USER: ', error);
-        res.sendStatus(400);
+        
+        res.status(422).send(`${error.detail}`);
     }
-
-
-
 
 }
