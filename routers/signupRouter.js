@@ -1,11 +1,10 @@
 import { Router } from 'express'; 
 import { postRegister } from '../controllers/signupController.js';
-import { verifyEqualPass } from '../middlewares/verifiesMidds.js';
+import { checkDatas } from '../middlewares/verifiesMidds.js';
 
 const signupRouter = Router();
 
-signupRouter.post('/signup', verifyEqualPass, postRegister);
-
+signupRouter.post('/signup', checkDatas, postRegister);
 
 
 export default signupRouter;

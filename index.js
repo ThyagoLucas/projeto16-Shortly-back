@@ -2,6 +2,7 @@ import express, { json } from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv';
 import signupRouter from './routers/signupRouter.js';
+import signinRouter from './routers/signinRouter.js';
 
 const server = express();
 
@@ -15,3 +16,4 @@ server.listen(port, ()=>{console.log(`Server is online on PORT ${port}`)});
 
 //Routers
 server.use(signupRouter);
+server.use(signinRouter);

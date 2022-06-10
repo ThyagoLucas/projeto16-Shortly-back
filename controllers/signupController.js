@@ -8,7 +8,7 @@ export async function postRegister(req, res){
 
     try {
 
-     await db.query(`INSERT INTO users (name, email, password) VALUES ($1, $2, $3)`, [`${name}`, `${email}`, `${passCrypt}`]);
+     await db.query(`INSERT INTO users (name, email, password) VALUES ($1, $2, $3)`, [`${name}`, `${email.toLowerCase()}`, `${passCrypt}`]);
      res.sendStatus(201)
         
     } catch (error) {
