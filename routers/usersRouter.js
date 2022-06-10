@@ -5,7 +5,8 @@ import { verifyHeaderToken, verifyParams } from "../middlewares/verifiesMidds.js
 
 const usersRouter = Router();
 
-usersRouter.get('/users/:id?', verifyHeaderToken, verifyParams, getInfoUser)
+usersRouter.get('/users/:id?', verifyHeaderToken, verifyParams, getInfoUser);
+
 
 
 export default usersRouter;

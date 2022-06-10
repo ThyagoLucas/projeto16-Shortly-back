@@ -5,6 +5,7 @@ import signupRouter from './routers/signupRouter.js';
 import signinRouter from './routers/signinRouter.js';
 import urlsRouter from './routers/urlsRouter.js';
 import usersRouter from './routers/usersRouter.js';
+import rankingRouter from './routers/rankingRouter.js';
 
 const server = express();
 
@@ -21,4 +22,5 @@ server.use(signupRouter);
 server.use(signinRouter);
 server.use(urlsRouter);
 server.use(usersRouter);
+server.use(rankingRouter);
 

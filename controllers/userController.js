@@ -3,7 +3,6 @@ import db from "../db.js";
 export async function getInfoUser(req, res){
 
     const { id } = req.params;
-    console.log("entrou nas entregas")
 
     try {
         const userInfos = await db.query(`
@@ -20,9 +19,6 @@ export async function getInfoUser(req, res){
         
         `)
 
-       
-
-
         const resumeUser = {...userInfos.rows[0], shortenedUrls: userLinks.rows };
         
 
@@ -34,9 +30,6 @@ export async function getInfoUser(req, res){
         res.sendStatus(404).send('usuario não encontrado');
         
     }
-
-
-
 
 
 }
