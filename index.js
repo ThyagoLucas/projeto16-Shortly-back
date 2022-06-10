@@ -3,7 +3,8 @@ import cors from 'cors';
 import dotenv from 'dotenv';
 import signupRouter from './routers/signupRouter.js';
 import signinRouter from './routers/signinRouter.js';
-import urlsRouter from './routers/ urlsRouter.js';
+import urlsRouter from './routers/urlsRouter.js';
+import usersRouter from './routers/usersRouter.js';
 
 const server = express();
 
@@ -19,4 +20,5 @@ server.listen(port, ()=>{console.log(`Server is online on PORT ${port}`)});
 server.use(signupRouter);
 server.use(signinRouter);
 server.use(urlsRouter);
+server.use(usersRouter);
 

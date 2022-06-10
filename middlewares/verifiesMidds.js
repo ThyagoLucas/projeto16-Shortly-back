@@ -88,7 +88,7 @@ export async function verifyParams (req, res, next){
     const { id } = req.params;
 
     if(!id){
-        return res.status(401).send('rota sem parametro, envie pelo menosssss um parametro para consulta')
+        return res.status(401).send('rota sem parametro, envie pelo menoss um parametro para consulta')
     }
     else next();
 
@@ -96,16 +96,15 @@ export async function verifyParams (req, res, next){
 
 export async function vLinkProperty(req, res, next){
 
+    const { id } = req.params;
     const { authorization } = req.headers;
     const token = authorization?.replace('Bearer', '').trim();
 
-    const { id } = req.params;
-console.log("entrou no property")
     try {
         
         const user = await db.query(`SELECT user_id FROM sessions WHERE token = '${token}'`)
         const { user_id } = user.rows[0];
-        console.log(user_id);
+       
         const user_id_link = await db.query(`SELECT user_id FROM links WHERE id = ${id}`);
 
         if(user_id === user_id_link.rows[0].user_id){
@@ -117,10 +116,5 @@ console.log("entrou no property")
     } catch (error) {
         res.status(404).send('url não existe');
     }
-    
-
-
-
-
 
 }
