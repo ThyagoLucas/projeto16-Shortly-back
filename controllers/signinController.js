@@ -11,7 +11,7 @@ export async function login(req, res){
         const user_id =infoUser.rows[0].user_id;
         
         await db.query(`INSERT INTO 
-                            sessions (token, user_id, isAvailable) 
+                            sessions (token, user_id, is_available)
                             VALUES ($1, $2, $3)`, [`${token}`, user_id, true]);
         
         res.status(200).send(token);

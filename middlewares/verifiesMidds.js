@@ -39,3 +39,88 @@ export async function verifyUserAndPass(req, res, next ){
     }
 
 }
+
+export async function verifyHeaderToken(req, res, next){
+
+    const { authorization } = req.headers;
+    const token = authorization?.replace('Bearer', '').trim();
+
+    if(!authorization){
+        return res.status(422).send('token não pode ser vazio');
+    }
+
+    try { 
+
+        const user = await db.query(`SELECT * FROM sessions WHERE token = '${token}'`);
+    
+        if(user.rowCount === 0 ){
+            return res.status(401).send('token da sessão não encontrado');
+        }
+        if(!user.rows[0].is_available){
+            return res.status(401).send('token de sessão não esta disponivel, favor, faça o login novamente');
+        }
+
+        else next();
+        
+    } catch (error) {
+        
+    }
+   
+
+}
+
+export async function verifyUrl(req, res, next){
+
+    const { url } = req.body;
+
+    try {
+        let isUrl = new URL(url);
+        next();
+        
+    } catch (error) {
+        res.status(422).send('url inválida')
+    }
+
+}
+
+export async function verifyParams (req, res, next){
+
+    const { id } = req.params;
+
+    if(!id){
+        return res.status(401).send('rota sem parametro, envie pelo menosssss um parametro para consulta')
+    }
+    else next();
+
+}
+
+export async function vLinkProperty(req, res, next){
+
+    const { authorization } = req.headers;
+    const token = authorization?.replace('Bearer', '').trim();
+
+    const { id } = req.params;
+console.log("entrou no property")
+    try {
+        
+        const user = await db.query(`SELECT user_id FROM sessions WHERE token = '${token}'`)
+        const { user_id } = user.rows[0];
+        console.log(user_id);
+        const user_id_link = await db.query(`SELECT user_id FROM links WHERE id = ${id}`);
+
+        if(user_id === user_id_link.rows[0].user_id){
+            next()
+        }
+        else return res.status(401).send('url não pertence ao usuário')
+
+
+    } catch (error) {
+        res.status(404).send('url não existe');
+    }
+    
+
+
+
+
+
+}
